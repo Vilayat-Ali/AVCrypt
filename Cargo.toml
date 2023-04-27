@@ -13,7 +13,7 @@ panic = 'abort'     # Abort on panic
 strip = true        # Strip symbols from binary*
 
 [[bench]]
-name = "my_bench"
+name = "benchmarks"
 harness = false
 
 [dependencies]

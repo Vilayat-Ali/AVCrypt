@@ -13,8 +13,8 @@ pub fn run_cli() {
         Commands::Encrypt(data) => {
             // performing encryption
             let mut cube_builder: CubeBuilder = CubeBuilder::new(data.plain_text);
-            println!("Dimension: {}", cube_builder.dimension);
             let cube: Cube = cube_builder.build();
+            println!("Cube: {:#?}", cube);
             println!("{}", cube.to_string());
         }
         Commands::Decrypt(data) => {

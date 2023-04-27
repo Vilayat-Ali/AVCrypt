@@ -6,6 +6,7 @@ use std::fmt::{self, Display, Formatter, Result};
 /// Cube struct contains the required meta data that defined the overall structure of our cube instance.
 /// The Cube struct will be implementing `Mixable` trait, denoting that cube struct can be mixed and all
 /// Cube mixing algorithms are very much applicable to our Cube struct.
+#[derive(Debug)]
 pub struct Cube {
     /// cube_string contains the 3-d mapping of the cube structure in the memory. Where each cell contains
     /// a speicfic character in the byte format.
@@ -65,20 +66,18 @@ impl Display for Cube {
             writeln!(f, "----------------------\n")?;
             // Meta data
             //
-            // Utils
-            let print_box_border = || {
+            // starting horizontal border
+            {
                 for x in (0..((&self.dimension * 3) + (&self.dimension + 1))) {
                     if x % 4 == 0 {
-                        print!("+");
+                        write!(f, "+")?;
                     } else {
-                        print!("-");
+                        write!(f, "-")?;
                     }
                 }
-                print!("\n");
-            };
-            //
-            // starting horizontal border
-            print_box_border();
+                write!(f, "\n");
+            }
+
             // Printing cube
             for row in face.into_iter() {
                 // preparing row string
@@ -89,7 +88,16 @@ impl Display for Cube {
 
                 writeln!(f, "{}", row_string)?;
 
-                print_box_border();
+                {
+                    for x in (0..((&self.dimension * 3) + (&self.dimension + 1))) {
+                        if x % 4 == 0 {
+                            write!(f, "+")?;
+                        } else {
+                            write!(f, "-")?;
+                        }
+                    }
+                    write!(f, "\n")?;
+                }
 
                 row_no += 1;
             }
@@ -139,9 +147,9 @@ impl CubeBuilder {
         //! 2. Generate char_pos from the ransom character positions generated.
 
         // mapping the cube_string with random character positions
-        // let char_pos: Vec<usize> = map_char_pos(, &self.data);
+        let char_pos: Vec<usize> = map_char_pos(self.cube_string.as_mut().unwrap(), &self.data);
 
-        Cube::new(vec![vec![vec![8; 5]; 5]; 5], self.dimension, Vec::new())
+        Cube::new(self.cube_string.clone().unwrap(), self.dimension, char_pos)
     }
 }
 

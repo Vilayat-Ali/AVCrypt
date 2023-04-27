@@ -9,12 +9,14 @@ use rand::{rngs::ThreadRng, thread_rng, Rng};
 //    in the memory
 
 pub fn map_char_pos(cube_string: &mut Vec<Vec<Vec<u8>>>, data: &String) -> Vec<usize> {
-    let dimension: usize = cube_string[0].len().pow(2); // dimension of the cube_string
-    let mut char_pos: Vec<usize> = Vec::with_capacity(dimension * 6);
+    let dimension: usize = cube_string[0].len(); // dimension of the cube_string
+    let mut char_pos: Vec<usize> = Vec::with_capacity(dimension.pow(2) * 6);
     let mut rng: ThreadRng = thread_rng();
-    let mut placeholder_vec: Vec<usize> = (0..(dimension * 6))
+    let mut placeholder_vec: Vec<usize> = (0..(dimension.pow(2) * 6))
         .map(|x: usize| x)
         .collect::<Vec<usize>>(); // generating placeholder vector
+
+    println!("{:#?}", placeholder_vec);
 
     for char_byte in data.as_bytes() {
         // generating uniformly distributed random value for placeholder vector index
@@ -32,12 +34,9 @@ pub fn map_char_pos(cube_string: &mut Vec<Vec<Vec<u8>>>, data: &String) -> Vec<u
         //
 
         // face number
-        let face_no: usize = (current_rand_pos / dimension.pow(2)) as usize;
+        let face_no: usize = current_rand_pos / dimension.pow(2);
         // row number
-        let row_no: usize = {
-            let remainder: usize = current_rand_pos % (dimension.pow(2) as usize);
-            remainder / dimension
-        };
+        let row_no: usize = (current_rand_pos % dimension.pow(2)) / dimension;
         // cell number
         let cell_no: usize = current_rand_pos % dimension;
 
