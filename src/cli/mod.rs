@@ -1,6 +1,7 @@
 use clap::Parser;
 
 mod app;
+mod errors;
 mod functions;
 
 use app::{Cli, Commands};
