@@ -49,3 +49,11 @@ pub fn map_char_pos(cube_string: &mut Vec<Vec<Vec<u8>>>, data: &String) -> Vec<u
 
     char_pos
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn validating_char_pos() {
+        assert_eq!(4, 2 + 2);
+    }
+}

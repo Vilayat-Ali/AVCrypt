@@ -1,6 +1,6 @@
 #![allow(unused, dead_code)]
 
-use crate::utils::gen_rand_pos::map_char_pos;
+use crate::gen::gen_rand_pos::map_char_pos;
 use std::fmt::{self, Display, Formatter, Result};
 
 /// Cube struct contains the required meta data that defined the overall structure of our cube instance.

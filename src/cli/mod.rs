@@ -1,9 +1,11 @@
-use avcrypt::cube::{Cube, CubeBuilder};
+use crate::cube::{Cube, CubeBuilder};
 use clap::Parser;
 
 mod app;
+mod functions;
 
 use app::{Cli, Commands};
+use functions::*;
 
 pub fn run_cli() {
     // cli instance
