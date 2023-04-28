@@ -5,9 +5,18 @@ use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
 mod tasks;
 
-use tasks::cube_init::{decryption, encryption};
+use tasks::{
+    cube_init::{decryption, encryption},
+    decryption, encryption,
+};
 
 fn criterion_benchmark(c: &mut Criterion) {
+    // ------------------------------------------------------------------------------------------
+    //
+    // Cube Instance Initialization
+    //
+    // ------------------------------------------------------------------------------------------
+
     // encryption cube initialization benchmark
     c.bench_function("Cube Initialization (Encryption)", |b| {
         b.iter(|| encryption::init_cube_encryption())
@@ -17,6 +26,30 @@ fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("Cube Initialization (Decryption)", |b| {
         b.iter(|| decryption::init_cube_encryption())
     });
+
+    //
+    // ------------------------------------------------------------------------------------------
+    //
+
+    // ------------------------------------------------------------------------------------------
+    //
+    // Encryption
+    //
+    // ------------------------------------------------------------------------------------------
+
+    //
+    // ------------------------------------------------------------------------------------------
+    //
+
+    // ------------------------------------------------------------------------------------------
+    //
+    // Decryption
+    //
+    // ------------------------------------------------------------------------------------------
+
+    //
+    // ------------------------------------------------------------------------------------------
+    //
 }
 
 criterion_group!(benches, criterion_benchmark);

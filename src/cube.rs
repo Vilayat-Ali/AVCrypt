@@ -113,7 +113,7 @@ pub struct CubeBuilder {
     pub key: Option<String>,
     pub cube_string: Option<Vec<Vec<Vec<u8>>>>,
     pub dimension: usize,
-    pub char_pos: Option<usize>,
+    pub char_pos: Option<Vec<usize>>,
 }
 
 impl CubeBuilder {
@@ -133,6 +133,11 @@ impl CubeBuilder {
             dimension,
             char_pos: None,
         }
+    }
+    // setting char pos
+    pub fn char_pos(&mut self, char_pos: Vec<usize>) {
+        //! This method is used to set character position in the Cube Builder
+        self.char_pos = Some(char_pos);
     }
     // setting key
     pub fn key(&mut self, key: String) {
