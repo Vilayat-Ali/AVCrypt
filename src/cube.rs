@@ -1,7 +1,10 @@
 #![allow(unused, dead_code)]
 
 use crate::gen::gen_rand_pos::map_char_pos;
-use std::fmt::{self, Display, Formatter, Result};
+use std::{
+    fmt::{self, Display, Formatter},
+    string::ParseError,
+};
 
 /// Cube struct contains the required meta data that defined the overall structure of our cube instance.
 /// The Cube struct will be implementing `Mixable` trait, denoting that cube struct can be mixed and all
@@ -30,8 +33,12 @@ impl Cube {
     }
 }
 
+pub trait Mixable {
+    fn mix(&mut self, move_list: Vec<String>) -> Result<(), String>;
+}
+
 impl Display for Cube {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let mut face_no: usize = 0;
         let mut row_no: usize = 0;
         let mut cell_no: usize = 0;
@@ -98,10 +105,8 @@ impl Display for Cube {
                     }
                     write!(f, "\n")?;
                 }
-
                 row_no += 1;
             }
-
             face_no += 1;
         }
         Ok(())
@@ -135,14 +140,17 @@ impl CubeBuilder {
         }
     }
     // setting char pos
-    pub fn char_pos(&mut self, char_pos: Vec<usize>) {
+    pub fn char_pos(&mut self, char_pos: Vec<usize>) -> &mut CubeBuilder {
         //! This method is used to set character position in the Cube Builder
         self.char_pos = Some(char_pos);
+        self
     }
     // setting key
-    pub fn key(&mut self, key: String) {
+    pub fn key(&mut self, key: String) -> &mut CubeBuilder {
         //! This method is used to set key in the Cube Builder.
+        //! Key pre-processing also takes place
         self.key = Some(key);
+        self
     }
     // build the cube instance
     pub fn build(&mut self) -> Cube {

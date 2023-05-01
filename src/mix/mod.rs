@@ -1,9 +1,10 @@
 mod col;
 mod row;
 
-use clap::error::ErrorKind;
+use crate::cube::{Cube, Mixable};
 
-pub fn mix_cube(cube_string: &mut Vec<Vec<Vec<u8>>>) -> Result<(), ErrorKind> {
-    print!("{:?}", cube_string);
-    Ok(())
+impl Mixable for Cube {
+    fn mix(&mut self, move_list: Vec<String>) -> Result<(), String> {
+        Ok(())
+    }
 }
