@@ -33,13 +33,9 @@ impl Cube {
     }
 }
 
-pub trait Mixable {
-    fn mix(&mut self, move_list: Vec<String>) -> Result<(), String>;
-}
-
 impl Display for Cube {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        let mut face_no: usize = 0;
+        let mut face_no: usize = 1;
         let mut row_no: usize = 0;
         let mut cell_no: usize = 0;
 
@@ -88,8 +84,21 @@ impl Display for Cube {
             // Printing cube
             for row in face.into_iter() {
                 // preparing row string
-                let mut row_string: String =
-                    row.iter().map(|x| format!("| {} ", x)).collect::<String>();
+                let mut row_string: String = row
+                    .into_iter()
+                    .map(|x| match x.to_string().len() {
+                        1 => {
+                            format!("| {} ", x)
+                        }
+                        2 => {
+                            format!("| {}", x)
+                        }
+                        3 => {
+                            format!("|{}", x)
+                        }
+                        _ => format!(""),
+                    })
+                    .collect::<String>();
 
                 row_string.push('|');
 
