@@ -16,8 +16,6 @@ pub fn map_char_pos(cube_string: &mut Vec<Vec<Vec<u8>>>, data: &String) -> Vec<u
         .map(|x: usize| x)
         .collect::<Vec<usize>>(); // generating placeholder vector
 
-    println!("{:#?}", placeholder_vec);
-
     for char_byte in data.as_bytes() {
         // generating uniformly distributed random value for placeholder vector index
         let rand_idx: usize = rng.gen_range(0..placeholder_vec.len());
@@ -48,12 +46,4 @@ pub fn map_char_pos(cube_string: &mut Vec<Vec<Vec<u8>>>, data: &String) -> Vec<u
     }
 
     char_pos
-}
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn validating_char_pos() {
-        assert_eq!(4, 2 + 2);
-    }
 }
