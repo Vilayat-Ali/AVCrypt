@@ -1,6 +1,4 @@
 #![allow(unused, dead_code)]
-
-use crate::gen::gen_rand_pos::map_char_pos;
 use std::{
     fmt::{self, Display, Formatter},
     string::ParseError,
@@ -119,68 +117,5 @@ impl Display for Cube {
             face_no += 1;
         }
         Ok(())
-    }
-}
-
-pub struct CubeBuilder {
-    pub data: String,
-    pub key: Option<String>,
-    pub cube_string: Option<Vec<Vec<Vec<u8>>>>,
-    pub dimension: usize,
-    pub char_pos: Option<Vec<usize>>,
-}
-
-impl CubeBuilder {
-    // new instance
-    pub fn new(data: String) -> Self {
-        // calculating dimension using the dimension formula
-        let dimension: usize = f64::ceil(f64::sqrt((data.len() as f64) / 6_f64)) as usize;
-        let dimension: usize = match dimension > 3 {
-            true => dimension,
-            false => 3,
-        };
-
-        Self {
-            data,
-            key: None,
-            cube_string: Some(vec![vec![vec![0; dimension]; dimension]; 6]),
-            dimension,
-            char_pos: None,
-        }
-    }
-    // setting char pos
-    pub fn char_pos(&mut self, char_pos: Vec<usize>) -> &mut CubeBuilder {
-        //! This method is used to set character position in the Cube Builder
-        self.char_pos = Some(char_pos);
-        self
-    }
-    // setting key
-    pub fn key(&mut self, key: String) -> &mut CubeBuilder {
-        //! This method is used to set key in the Cube Builder.
-        //! Key pre-processing also takes place
-        self.key = Some(key);
-        self
-    }
-    // build the cube instance
-    pub fn build(&mut self) -> Cube {
-        //! This method is used to generate Cube instance from inputs passed from the CubeBuilder.
-        //! This build process performs two important tasks:
-        //! 1. Generate random character positions and map it onto the cube_string.
-        //! 2. Generate char_pos from the ransom character positions generated.
-
-        // mapping the cube_string with random character positions
-        let char_pos: Vec<usize> = map_char_pos(self.cube_string.as_mut().unwrap(), &self.data);
-
-        Cube::new(self.cube_string.clone().unwrap(), self.dimension, char_pos)
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn cube_instance_init() {
-        assert_eq!(2 + 2, 4);
     }
 }
